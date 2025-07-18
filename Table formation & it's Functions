@@ -1,0 +1,44 @@
+CREATE DATABASE company;
+USE company;
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(50),
+    salary DECIMAL(10,2),
+    hire_date DATE
+);
+
+INSERT INTO employees (first_name, last_name, department, salary, hire_date) VALUES
+('John', 'Doe', 'HR', 60000.00, '2022-05-10'),
+('Jane', 'Smith', 'IT', 75000.00, '2021-08-15'),
+('Alice', 'Johnson', 'Finance', 82000.00, '2019-03-20'),
+('Bob', 'Williams', 'IT', 72000.00, '2020-11-25'),
+('Charlie', 'Brown', 'Marketing', 65000.00, '2023-01-05');
+
+SELECT * FROM employees;
+
+select *
+from employees;
+
+-- Find The Higest Salary
+select *
+from employees
+order by salary desc limit 1;
+
+-- Find The 2nd Higest Salary
+
+select *
+from employees
+order by salary desc limit 1 offset 1;
+
+-- select by letter(wildcard)
+select *
+from employees
+where first_name like '%e';
+
+-- Functions
+select concat(first_name, ' ' ,last_name) as Full_Name,
+ salary
+from employees;
