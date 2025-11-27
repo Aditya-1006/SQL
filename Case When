@@ -1,0 +1,33 @@
+SELECT * FROM employees;
+
+select first_name,
+	case
+    when salary>80000 then 'high'
+    when salary between 60000 and 70000 then 'medium'
+else 'low'
+    end as 'performance'
+from employees;
+
+
+
+select first_name,hire_date,
+	case
+    when hire_date>'2020-01-01'then 'Jr'
+    when hire_date<'2020-01-01' then'Senior'
+else 'Intern'
+    end as 'Post'
+from employees;
+
+select first_name,department,
+	case
+    when department ='HR' then salary * 0.5
+    when department ='IT' then salary * 0.1
+else '0'
+    end as 'Bonus'
+from employees;
+
+
+select department,salary,count(*)
+from employees
+group by department ,salary
+order by  salary desc;
