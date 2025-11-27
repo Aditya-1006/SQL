@@ -1,0 +1,55 @@
+CREATE DATABASE WindowFunctionDB;
+USE WindowFunctionDB;
+
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(100),
+    Department VARCHAR(50),
+    Salary INT
+);
+
+INSERT INTO Employees (EmpID, EmpName, Department, Salary) VALUES
+(1, 'Alice',    'HR',        60000),
+(2, 'Bob',      'IT',        75000),
+(3, 'Charlie',  'Finance',   70000),
+(4, 'David',    'IT',        75000),
+(5, 'Eva',      'HR',        60000),
+(6, 'Frank',    'Finance',   72000),
+(7, 'Grace',    'IT',        69000),
+(8, 'Hannah',   'HR',        58000),
+(9, 'Ian',      'Finance',   72000),
+(10, 'Jack',    'IT',        75000);
+
+
+select * from Employees;
+
+
+-- 1.Dense Rank Syntaxx (10, 10, 20, 30 = 1, 1, 2, 3)
+select 
+	EmpName, 
+    Department, 
+    Salary,
+    dense_rank() over(order by salary) as dense_num
+from Employees;
+
+-- 2. Rank syntax (10, 10, 20, 30 = 1, 1, 3, 4)
+select 
+	EmpName, 
+    Department, 
+    Salary,
+    rank() over( order by salary) as dense_num
+from Employees;
+
+-- 3.Find highest 2nd salary of each department
+with result as (
+	select 
+		EmpName, 
+		Department, 
+		Salary,
+		dense_rank() over( partition by Department 
+		order by salary desc ) as dense_num
+	from Employees
+)
+select EmpName, Department, Salary
+from result
+where dense_num = 2;
