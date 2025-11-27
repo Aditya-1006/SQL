@@ -1,0 +1,85 @@
+use company;
+
+show tables;
+
+select *
+from employees;
+
+-- Q1. Assign a row number to each employee based on their salary (highest first).
+select 
+	first_name,
+    last_name,
+    department,
+    salary,
+	row_number()over(order by salary) as row_num
+from employees;
+
+
+-- Q2. Assign a row number to each employee ordered by hire date (oldest first).
+select
+	first_name,
+    last_name
+    salary,
+    hire_date,
+    row_number() over (order by hire_date) as row_num
+from employees;
+
+-- 🔹 Q3. Assign a row number within each department based on salary.
+select 
+	first_name,
+    last_name,
+    department,
+    salary,
+    row_number() over(partition by department order by salary) as row_num
+from employees;
+
+-- 🔹 Q4. Show all employees along with their row number, ordered alphabetically by name.
+select
+	id,
+	first_name,
+    department,
+	row_number() over (order by first_name asc)as row_num
+from employees;
+
+
+-- 🔹 Q5. Add row numbers to the employee list without any ordering (just to practice syntax).
+select
+	 row_number() over() as row_num,
+    first_name,
+    last_name
+from employees;
+
+
+-- Q.6 Highest Paid Employee per Department
+select
+		first_name,
+        last_name,
+        department,
+        salary,
+        row_number() over (partition by department order by salary desc) as row_num
+from employees;
+
+
+--   Q.7 second Highest Salary in IT Department
+
+select
+	first_name,
+	department,
+	salary
+from(
+select
+	first_name,
+	department,
+	salary,
+	row_number() over (partition by department order by salary desc) as row_num
+from employees
+	where department='IT'
+)as ranked
+    where row_num=2;
+       
+     
+    
+    
+	
+	
+
