@@ -1,0 +1,79 @@
+
+use gb;
+
+-- 1. Create the employees table
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(50),
+    salary DECIMAL(10,2),
+    hire_date DATE
+);
+
+-- 2. Insert all 25 employee records
+INSERT INTO employees (id, first_name, last_name, department, salary, hire_date) VALUES
+(1, 'John', 'Doe', 'HR', 60000.00, '2022-05-10'),
+(2, 'Jane', 'Smith', 'IT', 75000.00, '2021-08-15'),
+(3, 'Alice', 'Johnson', 'Finance', 82000.00, '2019-03-20'),
+(4, 'Bob', 'Williams', 'IT', 72000.00, '2020-11-25'),
+(5, 'Charlie', 'Brown', 'Marketing', 65000.00, '2023-01-05'),
+(6, 'David', 'Miller', 'HR', 58000.00, '2021-04-12'),
+(7, 'Emma', 'Davis', 'IT', 77000.00, '2022-09-01'),
+(8, 'Michael', 'Wilson', 'Finance', 90000.00, '2018-07-19'),
+(9, 'Sophia', 'Taylor', 'Marketing', 69000.00, '2020-12-10'),
+(10, 'Daniel', 'Anderson', 'IT', 81000.00, '2023-03-18'),
+(11, 'Olivia', 'Thomas', 'HR', 61000.00, '2022-02-25'),
+(12, 'James', 'Moore', 'Finance', 87000.00, '2019-09-07'),
+(13, 'Isabella', 'Jackson', 'Marketing', 66000.00, '2021-06-15'),
+(14, 'Ethan', 'White', 'IT', 74000.00, '2020-10-22'),
+(15, 'Mia', 'Harris', 'Finance', 83000.00, '2023-04-30'),
+(16, 'Alexander', 'Martin', 'HR', 59000.00, '2019-11-05'),
+(17, 'Amelia', 'Thompson', 'IT', 76000.00, '2021-01-11'),
+(18, 'William', 'Garcia', 'Marketing', 70000.00, '2022-08-09'),
+(19, 'Harper', 'Martinez', 'Finance', 91000.00, '2018-05-21'),
+(20, 'Benjamin', 'Robinson', 'IT', 72000.00, '2020-07-14'),
+(21, 'Evelyn', 'Clark', 'HR', 62000.00, '2023-02-27'),
+(22, 'Lucas', 'Rodriguez', 'Finance', 85000.00, '2021-09-29'),
+(23, 'Abigail', 'Lewis', 'Marketing', 67500.00, '2022-06-18'),
+(24, 'Henry', 'Lee', 'IT', 79500.00, '2019-04-12'),
+(25, 'Charlotte', 'Walker', 'Finance', 88000.00, '2020-08-05');
+
+select * from employees;
+
+
+-- 1. Find the number of employees. 
+select department, count(*) as num_of_emp
+from employees
+group by department;
+
+
+-- 2. Find the minimum and maximum salary.
+select department, min(salary) as minimun, max(salary) as maximum
+from employees
+group by department;
+
+-- 3. Find Average Salary
+select department, avg(salary) as avg_salary
+from employees
+group by department;
+
+-- 4. Find the highest salary in descending order.
+select department, salary
+from employees 
+order by salary desc;
+
+
+-- 5. Find the department who has maximum number of employees.
+select department, count(*) as num_of_emp
+from employees
+group by department
+order by num_of_emp desc limit 1;
+
+
+-- 6. Find the deprtment who has more then 3 employees
+select department, count(*) as num_of_emp
+from employees
+group by department
+having num_of_emp>5;
+
